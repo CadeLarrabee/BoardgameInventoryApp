@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Developer</title>
+  </head>
+  <body>
+    <h1>Add a New Developer</h1>
+    <form action="/developers" method="POST">
+      <label for="name">Developer Name:</label>
+      <input type="text" id="name" name="developer[name]" required />
+
+      <label for="boardgames">Board Games (comma-separated):</label>
+      <input type="text" id="boardgames" name="developer[boardgames]" />
+
+      <button type="submit">Add Developer</button>
+    </form>
+  </body>
+</html>

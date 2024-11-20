@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List View</title>
+  </head>
+  <body>
+    <h1>Board Games</h1>
+    <ul>
+      <% boardgames.forEach((boardgame) => { %>
+      <li><%= boardgame.name %> (Rating: <%= boardgame.rating || "N/A" %>)</li>
+      <% }) %>
+    </ul>
+
+    <h1>Developers</h1>
+    <ul>
+      <% developers.forEach((developer) => { %>
+      <li><%= developer.name %></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
