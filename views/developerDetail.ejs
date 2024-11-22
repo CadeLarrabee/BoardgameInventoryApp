@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= developer.developer_name %> Details</title>
+  </head>
+  <body>
+    <h2>Developer</h2>
+    <h3>Name: <%= developer.developer_name %></h3>
+    <p>
+      Description: <%= developer.developer_desc || "No description available" %>
+    </p>
+    <h2>Boardgames</h2>
+    <ul>
+      <% boardgames.forEach((boardgame) => { %>
+      <li><%= boardgame.boardgame_name %></li>
+      <% }) %>
+    </ul>
+
+    <a href="/">Back to List</a>
+  </body>
+</html>
