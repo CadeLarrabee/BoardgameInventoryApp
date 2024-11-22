@@ -3,16 +3,48 @@
 const { Pool } = require("pg");
 const pool = require("./pool");
 
-// Retrieve all board games
 async function getAllBoardGames() {
-  const { rows } = await pool.query("SELECT * FROM boardgames");
-  return rows;
+  const client = await pool.connect();
+  try {
+    const { rows } = await client.query("SELECT * FROM boardgames");
+    console.log(rows);
+    return rows;
+  } catch (err) {
+    console.error("Error in getAllBoardGames:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
-// Retrieve all developers
 async function getAllDevelopers() {
-  const { rows } = await pool.query("SELECT * FROM developers");
-  return rows;
+  const client = await pool.connect();
+  try {
+    const { rows } = await client.query("SELECT * FROM developers");
+    return rows;
+  } catch (err) {
+    console.error("Error in getAllDevelopers:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+//individual queries
+async function getBoardGameById(id) {
+  const { rows } = await pool.query(
+    "SELECT * FROM boardgames WHERE boardgame_id = $1",
+    [id]
+  );
+  return rows[0];
+}
+
+async function getDeveloperById(id) {
+  const { rows } = await pool.query(
+    "SELECT * FROM developers WHERE developer_id = $1",
+    [id]
+  );
+  return rows[0];
 }
 
 // Insert a new developer with associated board games
@@ -38,7 +70,7 @@ async function insertDeveloper(name, boardgames) {
 
       let boardgameId;
       if (boardgameResult.rows.length > 0) {
-        // Board game exists
+        // Board game exists, assign it
         boardgameId = boardgameResult.rows[0].boardgame_id;
       } else {
         // Board game does not exist, insert it
@@ -281,6 +313,8 @@ async function updateDeveloper(developerId, name, boardgames) {
 module.exports = {
   getAllBoardGames,
   getAllDevelopers,
+  getBoardGameById,
+  getDeveloperById,
   insertBoardGame,
   insertDeveloper,
   getBoardGamesByDeveloper,

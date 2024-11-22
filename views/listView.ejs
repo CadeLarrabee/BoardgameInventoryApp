@@ -9,14 +9,23 @@
     <h1>Board Games</h1>
     <ul>
       <% boardgames.forEach((boardgame) => { %>
-      <li><%= boardgame.name %> (Rating: <%= boardgame.rating || "N/A" %>)</li>
+      <li>
+        <a href="/boardgames/<%= boardgame.boardgame_id %>">
+          <%= boardgame.boardgame_name %> (Rating: <%=
+          boardgame.boardgame_rating || "N/A" %>)
+        </a>
+      </li>
       <% }) %>
     </ul>
 
     <h1>Developers</h1>
     <ul>
       <% developers.forEach((developer) => { %>
-      <li><%= developer.name %></li>
+      <li>
+        <a href="/developers/<%= developer.developer_id %>">
+          <%= developer.developer_name %>
+        </a>
+      </li>
       <% }) %>
     </ul>
   </body>

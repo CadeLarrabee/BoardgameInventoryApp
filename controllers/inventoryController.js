@@ -13,9 +13,31 @@ function renderDeveloperForm(req, res) {
   res.render("developerForm");
 }
 
+async function listBoardDevView(req, res) {
+  const boardgames = await db.getAllBoardGames();
+  const developers = await db.getAllDevelopers();
+  res.render("listView", { boardgames, developers });
+}
+
 async function boardGet(req, res) {
   const boardgames = await db.getAllBoardGames();
   res.render("listView", { boardgames, developers: [] });
+}
+
+// Get board game details
+async function boardGameDetail(req, res) {
+  const boardgameId = req.params.id;
+  const boardgame = await db.getBoardGameById(boardgameId);
+  const developers = await db.getDevelopersByBoardGame(boardgameId);
+  res.render("boardgameDetail", { boardgame, developers });
+}
+
+// Get developer details
+async function developerDetail(req, res) {
+  const developerId = req.params.id;
+  const developer = await db.getDeveloperById(developerId);
+  const boardgames = await db.getBoardGamesByDeveloper(developerId);
+  res.render("developerDetail", { developer, boardgames });
 }
 
 async function boardPost(req, res) {
@@ -40,6 +62,9 @@ module.exports = {
   boardPost,
   devGet,
   devPost,
+  listBoardDevView,
   renderDeveloperForm,
+  developerDetail,
+  boardGameDetail,
   renderBoardForm,
 };
